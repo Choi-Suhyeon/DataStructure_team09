@@ -51,14 +51,14 @@ int deleteHeap(heapType* h) {
 	current = 1;
 	while ((current * 2) <= h->size)
 	{
-		//ì™¼ìª½ ì˜¤ë¥¸ìª½ ìì‹ ì¤‘ ë” í° ê°’ì„ ê°€ì§„ ìœ„ì¹˜ ->child
+		//¿ŞÂÊ ¿À¸¥ÂÊ ÀÚ½Ä Áß ´õ Å« °ªÀ» °¡Áø À§Ä¡ ->child
 		child = current * 2;
 		if (((child + 1) <= h->size) && (h->data[child] < h->data[child + 1]))
 		child++;
 
 		if (h->data[child] <= h->data[current])
 			break;
-		//ë¶€ëª¨ ìì‹ ê°„ ê°’ì„ êµí™˜
+		//ºÎ¸ğ ÀÚ½Ä °£ °ªÀ» ±³È¯
 		temp = h->data[child];
 		h->data[child] = h->data[current];
 		h->data[current] = temp;
