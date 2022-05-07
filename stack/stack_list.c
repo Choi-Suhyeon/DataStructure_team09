@@ -28,37 +28,20 @@ void push(Stack* stack, int value) {
 	stack->top = node;
 }
 
-void pop(Stack* stack) {
+int pop(Stack* stack) {
 	if (isEmpty(stack)) {
 		printf("Stack is empty\n");
 		return;
 	}
 	else {
 		Node* temp = stack->top;
+		int value = temp->value;
 		stack->top = temp->next;
 		free(temp);
+		return value;
 	}
 }
 
-void print(Stack* stack) {
-	Node* temp = stack->top;
-
-	for (temp = stack->top; temp != NULL; temp = temp->next)
-		printf("%d\n", temp->value);
-	printf("\n");
-}
-
 int main() {
-	Stack s;
-
-	init(&s);
-	push(&s, 1);
-	push(&s, 2);
-	push(&s, 3);
-	push(&s, 4);
-	print(&s);
-	pop(&s);
-	print(&s);
-
 	return 0;
 }
