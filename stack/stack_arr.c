@@ -34,20 +34,6 @@ int pop() {
 	return stack[top--];
 }
 
-void print() {
-	for (int i = top; i >= 0; i--)
-		printf("%d\n", stack[i]);
-	printf("\n");
-}
-
 int main() {
-	push(1);
-	push(2);
-	push(3);
-	push(4);
-	print();
-	pop();
-	print();
-
 	return 0;
 }
