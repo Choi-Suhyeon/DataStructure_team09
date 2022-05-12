@@ -50,6 +50,18 @@
         return result;                              \
     }                                               \
     \
+    void T##DeleteQueue(T##_Queue * const qu) {          \
+        while (qu->length) {                             \
+            T##_QueueNode * next_node = qu->front->next; \
+                                                         \
+            free(qu->front);                             \
+            qu->front = next_node;                       \
+            --qu->length;                                \
+        }                                                \
+                                                         \
+        free(qu);                                        \
+    }                                                    \
+    \
     void T##TestForNormalcyQu(T##_Queue * const qu) { \
         const unsigned kLenBool  = !!qu->length,      \
                        kFntBool  = !!qu->front,       \
@@ -72,6 +84,7 @@
 #define NEW_QUEUE(T)      T##Queue()
 #define ENQUEUE(T)        T##Enqueue
 #define DEQUEUE(T)        T##Dequeue
+#define DELETE_QUEUE(T)   T##DeleteQueue
 #define IS_EMPTY_QUEUE(T) T##IsEmptyQueue
 #define IS_FULL_QUEUE(T)  T##IsFullQueue
 

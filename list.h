@@ -93,6 +93,18 @@
         return val;                                            \
     }                                                          \
     \
+    void T##DeleteList(T##_List * const li) {              \
+        while (li->length) {                               \
+            T##_ListNode * next_node = li->header->r_link; \
+                                                           \
+            free(li->header);                              \
+            li->header = next_node;                        \
+            --li->length;                                  \
+        }                                                  \
+                                                           \
+        free(li);                                          \
+    }                                                      \
+    \
     void T##TestForNormalcyLi(T##_List * const li) { \
         const unsigned kLenBool  = !!li->length,     \
                        kFntBool  = !!li->header,     \
@@ -117,6 +129,7 @@
 #define APPEND(T)        T##Append
 #define INSERT(T)        T##Insert
 #define REMOVE(T)        T##Remove
+#define DELETE_LIST(T)   T##DeleteList
 #define IS_EMPTY_LIST(T) T##IsEmptyList
 #define IS_FULL_LIST(T)  T##IsFullList
 
