@@ -2,7 +2,7 @@
 #include <stdio.h>
 #define MAX_COUNT 100
 
-typedef struct {
+typedef struct _heaptype{
 	int data[MAX_COUNT];
 	int size;
 }heapType;
@@ -37,38 +37,39 @@ void printHeap(heapType* h) {
 	printf("\n");
 }
 
-int deleteHeap(HeapType* h) {
+int deleteHeap(heapType* h) {
 	int current, child;
 	int temp;
 	int topdata = h->data[1];
 	if (h->size == 0) {
 		printf("Empty!!\n");
-		return;
 	}
-	h->data[1]= h->data[h->size];
-	h->size--;
+    else {
+        h->data[1]= h->data[h->size];
+        h->size--;
 
-	current = 1;
-	while ((current * 2) <= h->size)
-	{
-		//왼쪽 오른쪽 자식 중 더 큰 값을 가진 위치 ->child
-		child = current * 2;
-		if (((child + 1) <= h->size) && (h->data[child] < h->data[child + 1]))
-		child++;
+        current = 1;
+        while ((current * 2) <= h->size)
+        {
+            
+            child = current * 2;
+            if (((child + 1) <= h->size) && (h->data[child] < h->data[child + 1]))
+            child++;
 
-		if (h->data[child] <= h->data[current])
-			break;
-		//부모 자식 간 값을 교환
-		temp = h->data[child];
-		h->data[child] = h->data[current];
-		h->data[current] = temp;
+            if (h->data[child] <= h->data[current])
+                break;
+            
+            temp = h->data[child];
+            h->data[child] = h->data[current];
+            h->data[current] = temp;
 
-		current = child;
-	}
-	return topdata;
+            current = child;
+        }
+        return topdata;
+    }
 }
 
-void main() {
+int main() {
 	heapType heap;
 	heap.size = 0;
 
