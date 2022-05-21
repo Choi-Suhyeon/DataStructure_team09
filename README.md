@@ -24,7 +24,7 @@ AICS-201 team 09 library
 | ---------------- | ----------- | ---- | ---- | ---- |
 | 버블 정렬        |             |      |      |      |
 | 빗 정렬          |             |      |      |      |
-| 선택 정렬        |             |      |      |      |
+| 선택 정렬        |void SelectSortArray(void * seq, unsigned char type_size, const unsigned long long elem_size, int (*comparator)(const void * x, const void * y))|void 포인터 이용하여 구현 void 포인터 관련 문제를 해결하기 위한 변수 제공|      |comparator 함수 필요|
 | 삽입 정렬        |             |      |      |      |
 | 삽입 정렬 변형 1 |             |      |      |      |
 | 삽입 정렬 변형 2 |             |      |      |      |
