@@ -7,7 +7,7 @@ typedef struct _heaptype{
 	int size;
 }heapType;
 
-void insertHeap(heapType* h, int item) {
+void insertHeap(heapType* h, int item, int (*comparator)(const void * x, const void * y)) {
 	int index;
 	if (h->size >= MAX_COUNT - 1) {
 		printf("Full!!\n");
@@ -19,13 +19,12 @@ void insertHeap(heapType* h, int item) {
 	index = h->size;
 	h->data[index] = item;
 
-	while ((index !=1)&&(h->data[index/2]<h->data[index])) {
+	while ((index !=1)&&(comparator(h->data[index], h->data[index/2]) > 0)) {
 		int temp = h->data[index / 2];
 		h->data[index / 2] = h->data[index];
 		h->data[index] = temp;
 
 		index = index / 2;
-
 	}
 }
 
@@ -37,7 +36,7 @@ void printHeap(heapType* h) {
 	printf("\n");
 }
 
-int deleteHeap(heapType* h) {
+int deleteHeap(heapType* h , int (*comparator)(const void * x, const void * y)) {
 	int current, child;
 	int temp;
 	int topdata = h->data[1];
@@ -53,10 +52,10 @@ int deleteHeap(heapType* h) {
         {
             
             child = current * 2;
-            if (((child + 1) <= h->size) && (h->data[child] < h->data[child + 1]))
+            if (((child + 1) <= h->size) && (comparator(h->data[child + 1], h->data[child])))
             child++;
 
-            if (h->data[child] <= h->data[current])
+            if (comparator(h->data[current],h->data[child]) >= 0)
                 break;
             
             temp = h->data[child];
@@ -67,23 +66,4 @@ int deleteHeap(heapType* h) {
         }
         return topdata;
     }
-}
-
-int main() {
-	heapType heap;
-	heap.size = 0;
-
-	int i,count;
-
-	insertHeap(&heap, 17);
-	insertHeap(&heap, 29);
-	insertHeap(&heap, 27);
-	insertHeap(&heap, 15);
-	insertHeap(&heap, 34);
-	printHeap(&heap);
-
-	count = heap.size;
-	for (i = 0; i < count; i++) {
-		printf("deleted: %d\n", deleteHeap(&heap));
-	}
 }
