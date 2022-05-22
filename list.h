@@ -18,10 +18,29 @@
         T##_ListNode * footer; \
         DtTyOfLiLen    length; \
     } T##_List;                \
+    typedef struct {             \
+        T##_ListNode * elem_ptr; \
+    } T##_ListIter;              \
     \
     T##_List * T##List() {                           \
         T##_List * li = calloc(1, sizeof(T##_List)); \
         return li;                                   \
+    }                                                \
+    \
+    T##_ListIter * T##ListIter(T##_List * const li) {         \
+        T##_ListIter * iter = malloc(sizeof(T##_ListIter *)); \
+        iter->elem_ptr = li->header;                          \
+        return iter;                                          \
+    }                                                         \
+    \
+    T T##Next(T##_ListIter * const iter) {       \
+        T val = iter->elem_ptr->data;            \
+        iter->elem_ptr = iter->elem_ptr->r_link; \
+        return val;                              \
+    }                                            \
+    \
+    unsigned T##HasNext(T##_ListIter * const iter) { \
+        return iter->elem_ptr != NULL;               \
     }                                                \
     \
     T##_ListNode * T##GetElement(T##_List * const li, const DtTyOfLiLen idx) { \
@@ -105,6 +124,10 @@
         free(li);                                          \
     }                                                      \
     \
+    inline void T##DeleteIter(T##_ListIter * const iter) { \
+        free(iter);                                        \
+    }                                                      \
+    \
     void T##TestForNormalcyLi(T##_List * const li) { \
         const unsigned kLenBool  = !!li->length,     \
                        kFntBool  = !!li->header,     \
@@ -123,14 +146,19 @@
         T##TestForNormalcyLi(li);                 \
         return li->length == ULLONG_MAX;          \
     }
-#define LIST(T)          T##_List *
-#define NEW_LIST(T)      T##List()
-#define GET(T)           T##Get
-#define APPEND(T)        T##Append
-#define INSERT(T)        T##Insert
-#define REMOVE(T)        T##Remove
-#define DELETE_LIST(T)   T##DeleteList
-#define IS_EMPTY_LIST(T) T##IsEmptyList
-#define IS_FULL_LIST(T)  T##IsFullList
+#define LIST(T)            T##_List *
+#define ITERATOR(T)        T##_ListIter *
+#define NEW_LIST(T)        T##List()
+#define NEW_ITERATOR(T)    T##ListIter
+#define NEXT(T)            T##Next
+#define HAS_NEXT(T)        T##HasNext
+#define GET(T)             T##Get
+#define APPEND(T)          T##Append
+#define INSERT(T)          T##Insert
+#define REMOVE(T)          T##Remove
+#define DELETE_LIST(T)     T##DeleteList
+#define DELETE_ITERATOR(T) T##DeleteIter
+#define IS_EMPTY_LIST(T)   T##IsEmptyList
+#define IS_FULL_LIST(T)    T##IsFullList
 
 #endif //DATA_STRUCTURE_LIST_H
