@@ -16,20 +16,20 @@
         unsigned long long length; \
     } T##_Stack;                   \
     \
-    T##_Stack * T##Stack() {                           \
-        T##_Stack * st = calloc(1, sizeof(T##_Stack)); \
-        return st;                                     \
-    }                                                  \
+    T##_Stack * T##Stack() {                                       \
+        T##_Stack * st = (T##_Stack*)calloc(1, sizeof(T##_Stack)); \
+        return st;                                                 \
+    }                                                              \
     \
-    void T##Push(T##_Stack * const st, T value) {             \
-        assert(st->length < ULLONG_MAX);                      \
-                                                              \
-        T##_StackNode * node = malloc(sizeof(T##_StackNode)); \
-        node->data = value;                                   \
-        node->next = st->top;                                 \
-        st->top = (T##_StPtr)node;                            \
-        ++st->length;                                         \
-    }                                                         \
+    void T##Push(T##_Stack * const st, T value) {                             \
+        assert(st->length < ULLONG_MAX);                                      \
+                                                                              \
+        T##_StackNode * node = (T##_StackNode*)malloc(sizeof(T##_StackNode)); \
+        node->data = value;                                                   \
+        node->next = st->top;                                                 \
+        st->top = (T##_StPtr)node;                                            \
+        ++st->length;                                                         \
+    }                                                                         \
     \
     T T##Pop(T##_Stack * const st) {    \
         assert(st->length);             \
