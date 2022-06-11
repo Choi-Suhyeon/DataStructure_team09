@@ -71,8 +71,7 @@
         hp->heap[1] = hp->heap[hp->length];                                              \
         memset(hp->heap + hp->length--, 0, sizeof(T));                                   \
                                                                                          \
-        uLLong idx = 1;                                                                  \
-        while (idx < hp->length) {                                                       \
+        for (uLLong idx = 1; idx < hp->length;) {                                        \
             const uLLong kLChildIdx = L_CHILD(idx),                                      \
                          kRChildIdx = R_CHILD(idx);                                      \
                                                                                          \
@@ -80,9 +79,9 @@
               * l_c_adr = hp->heap + kLChildIdx,                                         \
               * r_c_adr = hp->heap + kRChildIdx;                                         \
                                                                                          \
-            const int    kLCmp          = hp->comparator(crt_adr, l_c_adr),              \
-                         kRCmp          = hp->comparator(crt_adr, r_c_adr),              \
-                         kIsRAdvisable  = hp->comparator(l_c_adr, r_c_adr);              \
+            const int kLCmp         = hp->comparator(crt_adr, l_c_adr),                  \
+                      kRCmp         = hp->comparator(crt_adr, r_c_adr),                  \
+                      kIsRAdvisable = hp->comparator(l_c_adr, r_c_adr);                  \
                                                                                          \
             if (kLCmp != 1 && kRCmp != 1) break;                                         \
                                                                                          \

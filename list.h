@@ -4,10 +4,12 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <limits.h>
+#include "predef.h"
+#include <stdio.h>
 
 #define DEFINE_LIST(T) \
-    typedef struct _##T##_ListNode * T##_LiPtr; \
-    typedef unsigned long long    DtTyOfLiLen;  \
+    typedef struct _##T##_ListNode * T##_LiPtr;    \
+    typedef unsigned long long       DtTyOfLiLen;  \
     typedef struct _##T##_ListNode { \
         T         data;              \
         T##_LiPtr l_link;            \
@@ -124,7 +126,7 @@
         free(li);                                          \
     }                                                      \
     \
-    inline void T##DeleteIter(T##_ListIter * const iter) { \
+    void T##DeleteIter(T##_ListIter * const iter) { \
         free(iter);                                        \
     }                                                      \
     \
@@ -145,6 +147,22 @@
     unsigned T##IsFullList(T##_List * const li) { \
         T##TestForNormalcyLi(li);                 \
         return li->length == ULLONG_MAX;          \
+    }                                             \
+    \
+    void T##InsertionSort(T##_List * li, CompFn comparator) {           \
+        T##_ListNode * i = li->header->r_link,                          \
+                     * j;                                               \
+                                                                        \
+        for (; i; i = i->r_link) {                                      \
+            T key = (j = i)->data;                                      \
+                                                                        \
+            while ((j = j->l_link) && comparator(&key, &j->data) < 0) { \
+                j->r_link->data = j->data;                              \
+            }                                                           \
+                                                                        \
+            if (!j) li->header->data = key;                             \
+            else    j->r_link->data = key;                              \
+        }                                                               \
     }
 #define LIST(T)            T##_List *
 #define ITERATOR(T)        T##_ListIter *
@@ -160,5 +178,6 @@
 #define DELETE_ITERATOR(T) T##DeleteIter
 #define IS_EMPTY_LIST(T)   T##IsEmptyList
 #define IS_FULL_LIST(T)    T##IsFullList
+#define SORT_LIST(T)       T##InsertionSort
 
 #endif //DATA_STRUCTURE_LIST_H
