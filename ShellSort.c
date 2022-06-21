@@ -1,5 +1,5 @@
 #include "Swap.h"
-#include "BubbleSort.h"
+#include "ShellSort.h"
 
 void ShellSort(void* seq, const unsigned long long type_size, const unsigned long long length, int (*comparator)(const void* x, const void* y)) {
     byte* list = (byte*)seq;
