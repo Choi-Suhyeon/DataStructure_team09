@@ -1,4 +1,4 @@
-#include "SelectSortArray.h"
+#include "SelectSort.h"
 
 void swap(void * const fst, void * const snd, const unsigned long long sz) {
     byte * const tmp = (byte *)malloc(sz);
@@ -8,7 +8,7 @@ void swap(void * const fst, void * const snd, const unsigned long long sz) {
     free(tmp);
 }
 
-void SelectSortArray(void * seq, const unsigned long long type_size, const unsigned long long elem_size, int (*comparator)(const void * x, const void * y))
+void SelectSort(void * seq, const unsigned long long type_size, const unsigned long long elem_size, int (*comparator)(const void * x, const void * y))
 {
     byte* lst = (byte*) seq;
     int i, j;
