@@ -7,13 +7,10 @@
 typedef unsigned char      byte;
 typedef unsigned long long uLLong;
 typedef int (* CompFn)(const void *, const void *);
+typedef enum {
+    UChar, UShort, UInt, ULong, ULLong
+} UNumType;
 
-void swap(void * fst, void * snd, const uLLong sz) {
-    byte * const tmp = (byte *)malloc(sz);
-    memcpy(tmp, fst, sz);
-    memcpy(fst, snd, sz);
-    memcpy(snd, tmp, sz);
-    free(tmp);
-}
+void swap(void *, void *, uLLong);
 
 #endif //DATA_STRUCTURE_PREDEF_H
