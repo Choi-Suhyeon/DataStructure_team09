@@ -20,11 +20,11 @@ DEFINE_QUEUE(LLong)
 DEFINE_STACK(LLong)
 DEFINE_QUEUE(uLLong)
 
-void LLong_LSDRadixSort(LLong list[], uLLong length){
+void LLong_LSDRadixSort(LLong seq[], uLLong length){
     LLong factor = 1;
     LLong max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (LLong i = max_value; i > 0; i /= 10) max_digit++;
     
     STACK(LLong) bucket1 = NEW_STACK(LLong);
@@ -34,33 +34,33 @@ void LLong_LSDRadixSort(LLong list[], uLLong length){
 
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if (list[k] < 0){
-                    if((LLong)(list[k] * -1/factor)%10==j){
-                        PUSH(LLong)(bucket1, list[k]);
+                if (seq[k] < 0){
+                    if((LLong)(seq[k] * -1/factor)%10==j){
+                        PUSH(LLong)(bucket1, seq[k]);
                     }
                 }
                 else {
-                    if((LLong)(list[k]/factor)%10==j){
-                        ENQUEUE(LLong)(bucket2, list[k]);
+                    if((LLong)(seq[k]/factor)%10==j){
+                        ENQUEUE(LLong)(bucket2, seq[k]);
                     }
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            if(!IS_EMPTY_STACK(LLong)(bucket1))   list[i] = POP(LLong)(bucket1);
-            else list[i] = DEQUEUE(LLong)(bucket2);            
+            if(!IS_EMPTY_STACK(LLong)(bucket1))   seq[i] = POP(LLong)(bucket1);
+            else seq[i] = DEQUEUE(LLong)(bucket2);            
         }
     }
     DELETE_STACK(LLong)(bucket1);
     DELETE_QUEUE(LLong)(bucket2);
 }
 
-void Int_LSDRadixSort(int list[], uLLong length){
+void Int_LSDRadixSort(int seq[], uLLong length){
     int factor = 1;
     int max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (int i = max_value; i > 0; i /= 10) max_digit++;
     
     STACK(int) bucket1 = NEW_STACK(int);
@@ -70,33 +70,33 @@ void Int_LSDRadixSort(int list[], uLLong length){
 
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if (list[k] < 0){
-                    if((int)(list[k] * -1/factor)%10==j){
-                        PUSH(int)(bucket1, list[k]);
+                if (seq[k] < 0){
+                    if((int)(seq[k] * -1/factor)%10==j){
+                        PUSH(int)(bucket1, seq[k]);
                     }
                 }
                 else {
-                    if((int)(list[k]/factor)%10==j){
-                        ENQUEUE(int)(bucket2, list[k]);
+                    if((int)(seq[k]/factor)%10==j){
+                        ENQUEUE(int)(bucket2, seq[k]);
                     }
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            if(!IS_EMPTY_STACK(int)(bucket1))   list[i] = POP(int)(bucket1);
-            else list[i] = DEQUEUE(int)(bucket2);            
+            if(!IS_EMPTY_STACK(int)(bucket1))   seq[i] = POP(int)(bucket1);
+            else seq[i] = DEQUEUE(int)(bucket2);            
         }
     }
     DELETE_STACK(int)(bucket1);
     DELETE_QUEUE(int)(bucket2);
 }
 
-void Short_LSDRadixSort(short list[], uLLong length){
+void Short_LSDRadixSort(short seq[], uLLong length){
     short factor = 1;
     short max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (int i = max_value; i > 0; i /= 10) max_digit++;
     
     STACK(short) bucket1 = NEW_STACK(short);
@@ -106,69 +106,68 @@ void Short_LSDRadixSort(short list[], uLLong length){
 
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if (list[k] < 0){
-                    if((short)(list[k] * -1/factor)%10==j){
-                        PUSH(short)(bucket1, list[k]);
+                if (seq[k] < 0){
+                    if((short)(seq[k] * -1/factor)%10==j){
+                        PUSH(short)(bucket1, seq[k]);
                     }
                 }
                 else {
-                    if((short)(list[k]/factor)%10==j){
-                        ENQUEUE(short)(bucket2, list[k]);
+                    if((short)(seq[k]/factor)%10==j){
+                        ENQUEUE(short)(bucket2, seq[k]);
                     }
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            if(!IS_EMPTY_STACK(short)(bucket1))   list[i] = POP(short)(bucket1);
-            else list[i] = DEQUEUE(short)(bucket2);            
+            if(!IS_EMPTY_STACK(short)(bucket1))   seq[i] = POP(short)(bucket1);
+            else seq[i] = DEQUEUE(short)(bucket2);            
         }
     }
     DELETE_STACK(short)(bucket1);
     DELETE_QUEUE(short)(bucket2);
 }
 
-void Char_LSDRadixSort(short list[], uLLong length){
+void Char_LSDRadixSort(char seq[], uLLong length){
     char factor = 1;
     char max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (int i = max_value; i > 0; i /= 10) max_digit++;
     
     STACK(char) bucket1 = NEW_STACK(char);
     QUEUE(char) bucket2 = NEW_QUEUE(char);
     
     for (char i = 0; i < max_digit; i++){
-
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if (list[k] < 0){
-                    if((char)(list[k] * -1/factor)%10==j){
-                        PUSH(char)(bucket1, list[k]);
+                if (seq[k] < 0){
+                    if((char)(seq[k] * -1/factor)%10==j){
+                        PUSH(char)(bucket1, seq[k]);
                     }
                 }
                 else {
-                    if((char)(list[k]/factor)%10==j){
-                        ENQUEUE(char)(bucket2, list[k]);
+                    if((char)(seq[k]/factor)%10==j){
+                        ENQUEUE(char)(bucket2, seq[k]);
                     }
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            if(!IS_EMPTY_STACK(char)(bucket1))   list[i] = POP(char)(bucket1);
-            else list[i] = DEQUEUE(char)(bucket2);            
+            if(!IS_EMPTY_STACK(char)(bucket1))   seq[i] = POP(char)(bucket1);
+            else seq[i] = DEQUEUE(char)(bucket2);            
         }
     }
     DELETE_STACK(char)(bucket1);
     DELETE_QUEUE(char)(bucket2);
 }
 
-void uLLong_LSDRadixSort(uLLong list[], uLLong length){
+void uLLong_LSDRadixSort(uLLong seq[], uLLong length){
     uLLong factor = 1;
     uLLong max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (uLLong i = max_value; i > 0; i /= 10) max_digit++;
     
     QUEUE(uLLong) bucket2 = NEW_QUEUE(uLLong);
@@ -176,24 +175,24 @@ void uLLong_LSDRadixSort(uLLong list[], uLLong length){
     for (int i = 0; i < max_digit; i++){
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if((uLLong)(list[k]/factor)%10==j){
-                    ENQUEUE(uLLong)(bucket2, list[k]);
+                if((uLLong)(seq[k]/factor)%10==j){
+                    ENQUEUE(uLLong)(bucket2, seq[k]);
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            list[i] = DEQUEUE(uLLong)(bucket2);            
+            seq[i] = DEQUEUE(uLLong)(bucket2);            
         }
     }
     DELETE_QUEUE(uLLong)(bucket2);
 }
 
-void uInt_LSDRadixSort(uInt list[], uLLong length){
+void uInt_LSDRadixSort(uInt seq[], uLLong length){
     uInt factor = 1;
     uInt max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (uInt i = max_value; i > 0; i /= 10) max_digit++;
     
     QUEUE(uInt) bucket2 = NEW_QUEUE(uInt);
@@ -201,24 +200,24 @@ void uInt_LSDRadixSort(uInt list[], uLLong length){
     for (int i = 0; i < max_digit; i++){
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if((uInt)(list[k]/factor)%10==j){
-                    ENQUEUE(uInt)(bucket2, list[k]);
+                if((uInt)(seq[k]/factor)%10==j){
+                    ENQUEUE(uInt)(bucket2, seq[k]);
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            list[i] = DEQUEUE(uInt)(bucket2);            
+            seq[i] = DEQUEUE(uInt)(bucket2);            
         }
     }
     DELETE_QUEUE(uInt)(bucket2);
 }
 
-void uShort_LSDRadixSort(uShort list[], uLLong length){
+void uShort_LSDRadixSort(uShort seq[], uLLong length){
     uShort factor = 1;
     uShort max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (uShort i = max_value; i > 0; i /= 10) max_digit++;
     
     QUEUE(uShort) bucket2 = NEW_QUEUE(uShort);
@@ -226,24 +225,24 @@ void uShort_LSDRadixSort(uShort list[], uLLong length){
     for (int i = 0; i < max_digit; i++){
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if((uShort)(list[k]/factor)%10==j){
-                    ENQUEUE(uShort)(bucket2, list[k]);
+                if((uShort)(seq[k]/factor)%10==j){
+                    ENQUEUE(uShort)(bucket2, seq[k]);
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            list[i] = DEQUEUE(uShort)(bucket2);            
+            seq[i] = DEQUEUE(uShort)(bucket2);            
         }
     }
     DELETE_QUEUE(uShort)(bucket2);
 }
 
-void uChar_LSDRadixSort(uChar list[], uLLong length){
+void uChar_LSDRadixSort(uChar seq[], uLLong length){
     uChar factor = 1;
     uChar max_value = 0;
     int max_digit = 0;
-    for (uLLong i = 0; i < length; i++) if(list[i] > max_value) max_value = list[i];
+    for (uLLong i = 0; i < length; i++) if(seq[i] > max_value) max_value = seq[i];
     for (uChar i = max_value; i > 0; i /= 10) max_digit++;
     
     QUEUE(uChar) bucket2 = NEW_QUEUE(uChar);
@@ -251,14 +250,14 @@ void uChar_LSDRadixSort(uChar list[], uLLong length){
     for (int i = 0; i < max_digit; i++){
         for (int j = 0; j < 10; j++){
             for (uLLong k = 0; k < length; k++){
-                if((uChar)(list[k]/factor)%10==j){
-                    ENQUEUE(uChar)(bucket2, list[k]);
+                if((uChar)(seq[k]/factor)%10==j){
+                    ENQUEUE(uChar)(bucket2, seq[k]);
                 }                
             }
         }
         factor = factor * 10;
         for (uLLong i = 0; i < length; i++){
-            list[i] = DEQUEUE(uChar)(bucket2);            
+            seq[i] = DEQUEUE(uChar)(bucket2);            
         }
     }
     DELETE_QUEUE(uChar)(bucket2);
